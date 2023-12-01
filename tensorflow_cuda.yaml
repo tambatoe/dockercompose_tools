@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  run_tensorflow_jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile_tf_cuda
+    image: run_tensorflow_jupyter_image
+    ports:
+      - "8888:8888"
+    volumes:
+      - "$PWD/project:/tf/Workspace"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all  # Set this environment variable for GPU visibility
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
