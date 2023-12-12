@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  run_tensorflow_jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile_cpu
+    image: run_tensorflow_jupyter_cpu
+    ports:
+      - "8888:8888"
+    volumes:
+      - "$PWD/project:/tf/Workspace"
+    stdin_open: true
+    tty: true
